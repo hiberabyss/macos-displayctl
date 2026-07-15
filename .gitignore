@@ -1,3 +1,4 @@
 displayctl
+build/
 .DS_Store
 *.dSYM/
