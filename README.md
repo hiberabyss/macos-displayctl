@@ -1,6 +1,14 @@
 # macos-displayctl
 
-A small command-line utility for enabling and disabling displays on macOS. It dynamically resolves the private CoreGraphics API `CGSConfigureDisplayEnabled` and applies changes only to the current login session.
+`macos-displayctl` is a small command-line utility for enabling and disabling displays on macOS. It dynamically resolves the private CoreGraphics API `CGSConfigureDisplayEnabled` and applies display changes to the current login session.
+
+## Features
+
+- List online displays and their `CGDirectDisplayID` values.
+- Disable and restore external displays with simple commands.
+- Enable or disable a specific display by ID.
+- Prevent the built-in display from being disabled unless an active external display remains available.
+- Apply changes only to the current login session.
 
 ## Requirements
 
@@ -8,13 +16,23 @@ A small command-line utility for enabling and disabling displays on macOS. It dy
 - Xcode Command Line Tools
 - `make`
 
-## Build
+Install the Xcode Command Line Tools if necessary:
 
 ```bash
+xcode-select --install
+```
+
+## Build
+
+Clone the repository and build the executable:
+
+```bash
+git clone https://github.com/hiberabyss/macos-displayctl.git
+cd macos-displayctl
 make
 ```
 
-Other build targets:
+Additional build targets:
 
 ```bash
 make clean
@@ -23,10 +41,17 @@ make rebuild
 
 ## Usage
 
-List online displays:
+List all online displays:
 
 ```bash
 ./displayctl list
+```
+
+Example output:
+
+```text
+1    built-in    active    1728x1117
+2    external    active    1920x1080
 ```
 
 Disable all online external displays:
@@ -35,37 +60,42 @@ Disable all online external displays:
 ./displayctl off
 ```
 
-Restore the external displays previously disabled by the tool:
+Restore the external displays previously disabled by the default `off` command:
 
 ```bash
 ./displayctl on
 ```
 
-Operate on a specific `CGDirectDisplayID`:
+Enable or disable a specific display using its `CGDirectDisplayID`:
 
 ```bash
 ./displayctl off 2
 ./displayctl on 2
 ```
 
-The default `off` command stores disabled external display IDs in `/tmp/displayctl-disabled-<uid>`, allowing the default `on` command to restore displays that no longer appear in the online display list.
-
-The tool allows disabling the built-in display by ID only when at least one active external display will remain:
+The built-in display can be disabled by ID only when at least one active external display will remain:
 
 ```bash
 ./displayctl off 1
 ./displayctl on 1
 ```
 
-Display IDs can change after a restart, reconnection, or port change. Run `./displayctl list` before operating on a specific ID.
+Display IDs may change after restarting macOS, reconnecting a display, or switching ports. Run `./displayctl list` before operating on a specific display ID.
 
-## Limitations
+## How Restoration Works
 
-- This project uses a private, undocumented macOS API and may stop working after a system update.
-- Display changes use `kCGConfigureForSession` and are not intended to persist across logout or restart.
-- Restoring external displays with the default `on` command requires that they were previously disabled with the default `off` command.
-- The utility has been tested only on the author's local macOS configuration.
+The default `off` command records the IDs of disabled external displays in `/tmp/displayctl-disabled-<uid>`. The default `on` command reads this file so that it can restore displays that no longer appear in the online display list.
+
+Using `./displayctl on` requires the displays to have been disabled previously with `./displayctl off`. When operating directly by ID, use the same ID to restore the display.
+
+## Limitations and Warning
+
+This project uses the private, undocumented macOS API `CGSConfigureDisplayEnabled`. Apple may change or remove this API at any time, so the utility may stop working after a macOS update.
+
+Display changes are committed with `kCGConfigureForSession`. They are not intended to persist after logout or restart, but behavior involving private APIs cannot be guaranteed. Use this utility at your own risk, and ensure that another usable display remains available before disabling the built-in display.
+
+The utility has only been tested on a limited set of macOS hardware and display configurations.
 
 ## License
 
-No license has been specified yet.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
