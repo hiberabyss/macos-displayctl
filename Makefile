@@ -6,7 +6,7 @@ SWIFTFLAGS := -O -parse-as-library -framework AppKit -framework CoreGraphics
 
 CLI_TARGET := displayctl
 CLI_SOURCE := displayctl.c
-APP_NAME := macos-displayctl
+APP_NAME := DisplayCtl
 APP_BUNDLE := build/$(APP_NAME).app
 APP_EXECUTABLE := $(APP_BUNDLE)/Contents/MacOS/$(APP_NAME)
 APP_SOURCE := DisplayCtlApp.swift

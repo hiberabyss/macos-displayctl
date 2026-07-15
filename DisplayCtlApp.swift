@@ -340,7 +340,7 @@ private final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         menu.addItem(refresh)
 
         let quit = NSMenuItem(
-            title: "退出 macos-displayctl",
+            title: "退出 DisplayCtl",
             action: #selector(NSApplication.terminate(_:)),
             keyEquivalent: "q"
         )

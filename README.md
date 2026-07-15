@@ -1,6 +1,6 @@
-# macos-displayctl
+# DisplayCtl
 
-`macos-displayctl` 是一个用于控制 macOS 显示器的开源工具，包含原生菜单栏应用和命令行程序。它通过动态解析 CoreGraphics 私有 API `CGSConfigureDisplayEnabled`，在当前登录会话中启用或禁用显示器。
+`DisplayCtl` 是一个用于控制 macOS 显示器的开源工具，包含原生菜单栏应用和 `displayctl` 命令行程序。它通过动态解析 CoreGraphics 私有 API `CGSConfigureDisplayEnabled`，在当前登录会话中启用或禁用显示器。
 
 ## 功能
 
@@ -25,7 +25,7 @@ xcode-select --install
 
 ## 下载与安装
 
-从 [GitHub Releases](https://github.com/hiberabyss/macos-displayctl/releases) 下载最新的 DMG，打开后将 `macos-displayctl.app` 拖入 `Applications`。
+从 [GitHub Releases](https://github.com/hiberabyss/macos-displayctl/releases) 下载最新的 DMG，打开后将 `DisplayCtl.app` 拖入 `Applications`。
 
 当前安装包使用临时签名，尚未通过 Apple Developer ID 签名和公证。如果 macOS 阻止首次启动，请在 Finder 中右键应用并选择“打开”，或前往“系统设置 → 隐私与安全性”确认打开。
 
@@ -40,7 +40,7 @@ make app
 应用会生成在：
 
 ```text
-build/macos-displayctl.app
+build/DisplayCtl.app
 ```
 
 直接编译并启动：
