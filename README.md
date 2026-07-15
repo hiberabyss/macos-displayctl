@@ -23,6 +23,12 @@
 xcode-select --install
 ```
 
+## 下载与安装
+
+从 [GitHub Releases](https://github.com/hiberabyss/macos-displayctl/releases) 下载最新的 DMG，打开后将 `macos-displayctl.app` 拖入 `Applications`。
+
+当前安装包使用临时签名，尚未通过 Apple Developer ID 签名和公证。如果 macOS 阻止首次启动，请在 Finder 中右键应用并选择“打开”，或前往“系统设置 → 隐私与安全性”确认打开。
+
 ## 编译菜单栏应用
 
 ```bash
@@ -48,6 +54,14 @@ make run
 ```bash
 make install
 ```
+
+生成版本化 DMG 安装包：
+
+```bash
+make dmg
+```
+
+DMG 会生成在 `build/` 目录中，版本号来自 `Info.plist`。
 
 安装后可从“应用程序”目录启动。启动成功后，菜单栏会出现显示器图标。点击图标即可查看显示器列表，并通过每行右侧的开关控制屏幕状态。
 
