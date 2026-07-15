@@ -10,6 +10,7 @@ APP_NAME := macos-displayctl
 APP_BUNDLE := build/$(APP_NAME).app
 APP_EXECUTABLE := $(APP_BUNDLE)/Contents/MacOS/$(APP_NAME)
 APP_SOURCE := DisplayCtlApp.swift
+APP_ICON := AppIcon.icns
 
 .PHONY: all cli app run install clean rebuild
 
@@ -22,9 +23,10 @@ $(CLI_TARGET): $(CLI_SOURCE)
 
 app: $(APP_EXECUTABLE)
 
-$(APP_EXECUTABLE): $(APP_SOURCE) Info.plist
-	mkdir -p $(APP_BUNDLE)/Contents/MacOS
+$(APP_EXECUTABLE): $(APP_SOURCE) Info.plist $(APP_ICON)
+	mkdir -p $(APP_BUNDLE)/Contents/MacOS $(APP_BUNDLE)/Contents/Resources
 	cp Info.plist $(APP_BUNDLE)/Contents/Info.plist
+	cp $(APP_ICON) $(APP_BUNDLE)/Contents/Resources/AppIcon.icns
 	$(SWIFTC) $(SWIFTFLAGS) $(APP_SOURCE) -o $(APP_EXECUTABLE)
 	codesign --force --sign - $(APP_BUNDLE)
 

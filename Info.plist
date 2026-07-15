@@ -8,6 +8,8 @@
     <string>macos-displayctl</string>
     <key>CFBundleExecutable</key>
     <string>macos-displayctl</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>CFBundleIdentifier</key>
     <string>com.hiberabyss.macos-displayctl</string>
     <key>CFBundleInfoDictionaryVersion</key>
